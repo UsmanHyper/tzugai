@@ -4,10 +4,11 @@ const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const User = require("../../models/user.js");
-const { validateUserData } = require("../../middleware/signUpValidation.js");
-const { sendEmail } = require("../../middleware/sendEmail.js");
-const { generateRandomPassword } = require('../../middleware/rendomPassword.js');
+const User = require("../models/user.js");
+const { validateUserData } = require("../middleware/signUpValidation.js");
+// const { sendEmail } = require("../middleware/sendEmail.js");
+const { generateRandomPassword } = require('../middleware/rendomPassword.js');
+
 require('dotenv').config();
 
 
@@ -17,7 +18,6 @@ const saveUser = async (userData, res) => {
         const hashedPassword = await bcrypt.hash(randomPassword, 8);
 
         const newUser = new User({
-            name: userData.name,
             email: userData.email,
             password: hashedPassword,
         });
@@ -25,17 +25,14 @@ const saveUser = async (userData, res) => {
         const username = userData.email ? userData.email : "";
         const userpassword = randomPassword ? randomPassword : "";
 
-        // Send sign-up email
-        await  sendEmail(userData.email, 'signUp', { username: userData?.email, userpassword: randomPassword });
-
         const savedUser = await newUser.save();
 
         res.status(200).json({
             status: 200,
             data: {
                 userId: savedUser._id,
-                name: savedUser.name,
                 email: savedUser.email,
+                password: randomPassword,
             },
             message: 'User has been created',
         });
@@ -47,7 +44,9 @@ const saveUser = async (userData, res) => {
 
 
 router.post("/", validateUserData, async (req, res) => {
+    console.log("================>", req)
     try {
+
         const userData = req.body;
         // Check if the email is already in use
         const existingUser = await User.findOne({ email: userData.email });

@@ -4,11 +4,6 @@ const User = require("../models/user.js");
 const validateUserData = async (req, res, next) => {
     const userData = req.body;
 
-    // Validation checks...
-
-    if (!userData.name || !userData.email) {
-        return res.status(400).json({ status: 400, error: 'Name and email are required' });
-    }
 
     // Check Email Regex
     const emailRegex = /[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;

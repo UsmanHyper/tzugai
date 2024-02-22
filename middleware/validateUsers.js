@@ -1,4 +1,4 @@
-const UserModel = require("../models/usersModel.js");
+const Subscriber = require("../models/subscribers/subcribers.js");
 
 const validateUserData = async (req, res, next) => {
     const userData = req.body;
@@ -13,7 +13,7 @@ const validateUserData = async (req, res, next) => {
     }
 
     // Check if the email is already in use
-    const existingUser = await UserModel.findOne({ email: userData.email });
+    const existingUser = await Subscriber.findOne({ email: userData.email });
     if (existingUser) {
         return res.status(400).json({ status: 400, error: 'Email is already in use' });
     }
