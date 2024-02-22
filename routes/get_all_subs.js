@@ -5,8 +5,8 @@ const { authenticateToken } = require("../middleware/jwtValidator.js");
 
 require('dotenv').config();
 
-// router.get("/", authenticateToken, upload.single("image"), async (req, res) => {
-router.get("/", async (req, res) => {
+router.get("/", authenticateToken,  async (req, res) => {
+// router.get("/", async (req, res) => {
     try {
         const page = Number(req.query.page) || 1;
         const limit = Number(req.query.limit) || 10;
