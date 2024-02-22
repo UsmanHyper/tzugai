@@ -3,7 +3,6 @@ const router = express.Router();
 const User = require("../models/subscribers/subcribers.js");
 
 router.delete("/:userId", async (req, res) => {
-    console.log("::::::::::::::::::::::::>:::<:::<:::::")
 
     try {
         const userId = req.params.userId;
