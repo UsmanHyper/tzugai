@@ -8,10 +8,10 @@ const saveUser = async (req, res, image) => {
     try {
 
         const newUser = new Subscriber({
-            first_name: req.first_name,
-            last_name: req.last_name,
+            // first_name: req.first_name,
+            // last_name: req.last_name,
             email: req.email,
-            phone: req.phone,
+            // phone: req.phone,
         });
 
         const username = req.email ? req.email : "";
