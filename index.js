@@ -1,16 +1,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-// const cors = require("cors");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("./models/user.js");
-// const cronjob = require("./middleware/cron_job.js");
 const multer = require('multer');
 const upload = multer({ dest: 'C:/usman/new data base/images' });
+require('dotenv').config();
 
 const mongooseConnection = require("./db/mongodb.js");
 
-// const cron = require("node-cron");
 const corsMiddleware = require("./middleware/cors_middleware");
 
 const subscribed = require("./routes/subscribed.js");
@@ -20,7 +18,7 @@ const getAll = require("./routes/get_all_subs.js");
 const delSub = require("./routes/delete_subs.js");
 
 const app = express();
-const PORT = 3000;
+const PORT =  process.env.PORT;
 require('dotenv').config();
 
 app.use(corsMiddleware);
