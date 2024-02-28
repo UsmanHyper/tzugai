@@ -5,6 +5,8 @@ const jwt = require("jsonwebtoken");
 const User = require("./models/user.js");
 const multer = require('multer');
 const upload = multer({ dest: 'C:/usman/new data base/images' });
+// const upload = multer({ storage: storage });
+
 require('dotenv').config();
 
 const mongooseConnection = require("./db/mongodb.js");
@@ -18,7 +20,8 @@ const getAll = require("./routes/get_all_subs.js");
 const delSub = require("./routes/delete_subs.js");
 
 const app = express();
-const PORT =  process.env.PORT;
+const PORT = 3000;
+// const PORT = process.env.PORT ? process.env.PORT : 3000;
 require('dotenv').config();
 
 app.use(corsMiddleware);
@@ -35,6 +38,16 @@ const storage = multer.diskStorage({
         callback(null, file.fieldname);
     }
 });
+
+// const storage = multer.diskStorage({
+//     destination: function (req, file, callback) {
+//         callback(null, 'C:/usman/new data base/images');
+//     },
+//     filename: function (req, file, callback) {
+//         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+//         callback(null, file.originalname + '-' + uniqueSuffix);
+//     }
+// });
 
 
 
