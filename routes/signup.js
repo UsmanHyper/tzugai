@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const crypto = require("crypto");
-const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/user.js");
@@ -15,7 +14,8 @@ require('dotenv').config();
 const saveUser = async (userData, res) => {
     try {
         const randomPassword = generateRandomPassword();
-        const hashedPassword = await bcrypt.hash(randomPassword, 8);
+        const hashedPassword = randomPassword;
+        // const hashedPassword = await bcrypt.hash(randomPassword, 8);
 
         const newUser = new User({
             email: userData.email,

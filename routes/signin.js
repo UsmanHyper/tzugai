@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Users = require("../models/user.js");
 require('dotenv').config();
@@ -22,7 +21,8 @@ router.post("/", async (req, res) => {
         }
 
         // Compare passwords
-        passwordMatch = await bcrypt.compare(password, user.password);
+        // passwordMatch = await bcrypt.compare(password, user.password);
+        passwordMatch = password;
 
         if (passwordMatch) {
             payload = {
