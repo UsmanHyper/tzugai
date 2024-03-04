@@ -18,8 +18,9 @@ const signupRoute = require("./routes/signup.js");
 const getAll = require("./routes/get_all_subs.js");
 const delSub = require("./routes/delete_subs.js");
 
+
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3001;
 // const PORT = process.env.PORT ? process.env.PORT : 3000;
 require('dotenv').config();
 
