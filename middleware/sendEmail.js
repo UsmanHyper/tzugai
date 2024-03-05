@@ -1,71 +1,47 @@
 // emailMiddleware.js
-const nodemailer = require('nodemailer');
+// const nodemailer = require('nodemailer');
 const fs = require('fs');
 const ejs = require('ejs');
 require('dotenv').config();
+const sendpulse = require("../utils/sendpulse_services.js")
 
-// Load email configuration from environment variables or other sources
-const myEmail = process.env.EMAIL || "smartpolicewebportal@gmail.com";
-const myPassword = process.env.PASSWORD || "yboi tsnl ndkd bbof";
+const send_Email = async (email, templateName, data) => {
 
-let compiledTemplate
-
-const sendEmail = async (email, templateName, data) => {
-    // Load the HTML template based on the templateName
-    // const htmlTemplate = fs.readFileSync(`C:/usman/new data base/email-templete/signUp.html`, 'utf-8');
-    const htmlTemplate = fs.readFileSync(`C:/usman/new data base/email-templete/${templateName}.html`, 'utf-8');
-    // const forgetTemplate = fs.readFileSync(`C:/usman/new data base/email-templete/${templateName}.html`, 'utf-8');
-    // const verificationTemplate = fs.readFileSync(`C:/usman/new data base/email-templete/${templateName}.html`, 'utf-8');
-
-    // Compile the template with EJS and data
-
-    if (templateName === "signUp") {
-        let username = data.username;
-        let userpassword = data.userpassword
-        compiledTemplate = ejs.compile(htmlTemplate)({ username, userpassword });
-    } else if (templateName === "verifyPassoword") {
-        let otpkeyData = data.otpKey
-        compiledTemplate = ejs.compile(forgetTemplate)({ otpkeyData });
-    }
-    else if (templateName === "verificationEmail") {
-        compiledTemplate = ejs.compile(verificationTemplate)();
-    }
-    else {
-        return;
-
-    }
-
-    // Create and send the email using the compiled template
-    const transporter = nodemailer.createTransport({
-        // host: 'smtp.ethereal.email',
-        // port: 587,
-        // auth: {
-        //     user: 'smartpolicewebportal@gmail.com',
-        //     pass: 'cCsAB5dfdgzpEjAZkc'
-        // }
-        service: "gmail",
-        port: 587,
-        secure: true,
-        auth: {
-            user: myEmail,
-            pass: myPassword
-        }
-    });
-
-    const mailOptions = {
-        from: `'Usman Bin Saad' ${myEmail}`,
-        // to: email,
-        to: `${email} , "smartpolicewebportal@gmail.com"`,
-        subject: 'Welcome to Our App',
-        html: compiledTemplate,
-    };
-    let info = ''
     try {
-        info = await transporter.sendMail(mailOptions);
-        console.log('Email sent:', info.response);
-    } catch (error) {
-        console.error('Email sending error:', error);
-    }
-};
+        const htmlTemplate = fs.readFileSync('C:/usman/tzugai/email-templete/subscribe.html', 'utf-8');
+        compiledTemplate = ejs.compile(htmlTemplate)();
 
-module.exports = { sendEmail };
+
+        let token_info = await sendpulse.getAccessToken();
+
+        var encoded_html = Buffer.from(compiledTemplate, 'utf-8').toString('base64');
+        var email_metadata = {
+            "email": {
+                html: encoded_html,
+                "text": "You are registered Sucessfully.",
+                "subject": "Email has been registered",
+                "from": {
+                    "name": "TZUGAI",
+                    "email": process.env.SENDPULSE_EMAIL_SENDER_ADDRESS ?? "noreply@elmonxmail.com"
+                },
+                "to": [
+                    {
+                        // "name": `${response.full_name}`,
+                        "email": email,
+                    }
+                ]
+            },
+            "access_token": token_info.access_token
+        }
+
+        let res = await sendpulse.sendEmail(email_metadata);
+
+        return res
+    } catch (error) {
+        return error
+    }
+}
+
+
+
+module.exports = { send_Email };

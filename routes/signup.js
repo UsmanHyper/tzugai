@@ -36,6 +36,7 @@ const saveUser = async (userData, res) => {
             },
             message: 'User has been created',
         });
+       
     } catch (error) {
         console.error('Save User Error:', error);
         res.status(500).json({ status: 500, error: 'Internal Server Error during user creation' });

@@ -3,6 +3,7 @@ const router = express.Router();
 const Subscriber = require("../models/subscribers/subcribers.js");
 require('dotenv').config();
 const { validateUserData } = require('../middleware/validateUsers.js')
+const { send_Email } = require("../middleware/sendEmail.js");
 
 const saveUser = async (req, res, image) => {
     try {
@@ -25,11 +26,22 @@ const saveUser = async (req, res, image) => {
             message: 'Subscriber has been created',
         });
 
+        setTimeout(() => {
+            if (res.status(200)) {
+                // Send sign-up email
+                send_Email(req.email, 'Subscribe', { username: req?.email });
+            }
+
+        }, 3000)
     } catch (error) {
         console.error('Save Subscriber Error:', error);
         res.status(500).json({ status: 500, error: 'Internal Server Error during Subscriber creation' });
     }
 };
+// router.post("/", validateUserData, async (req, res) => {
+
+//     send_Email(req.email, 'Subscribe', { username: req?.email });
+// })
 
 
 router.post("/", validateUserData, async (req, res) => {
