@@ -44,7 +44,7 @@ const saveUser = async (req, res, image) => {
 // })
 
 
-router.post("/", validateUserData, async (req, res) => {
+router.post("/", validateUserData, async (req, res, next) => {
     try {
         const response = req.body;
         // Check if the email is already in use
@@ -56,9 +56,11 @@ router.post("/", validateUserData, async (req, res) => {
         await saveUser(response, res, req.file ? req.file.path : null);
     } catch (error) {
         console.error('Validation or Signup Error:', error);
-        res.status(400).json({ status: 400, error: 'Validation failed or internal error' });
+        // Pass error to the next middleware
+        next(error);
     }
 });
+
 
 
 module.exports = router;
