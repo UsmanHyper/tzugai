@@ -43,13 +43,13 @@ mongooseConnection.on('open', () => {
     app.use("/api/del_sub", delSub);
     app.use("/api/test", test);
     app.use("/", test);
-   
+
 
     // Error handling middleware
-    // app.use((err, req, res, next) => {
-    //     console.error(err.stack);
-    //     res.status(500).send('Something broke!');
-    // });
+    app.use((err, req, res, next) => {
+        console.error(err.stack);
+        res.status(500).send('Something broke!');
+    });
 
     // Start the server
     app.listen(PORT, () => {
