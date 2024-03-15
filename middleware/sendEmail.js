@@ -6,9 +6,8 @@ require('dotenv').config();
 const sendpulse = require("../utils/sendpulse_services.js")
 
 const send_Email = async (email, templateName, data) => {
-
     try {
-        const htmlTemplate = fs.readFileSync('C:/usman/tzugai/email-templete/subscribe.html', 'utf-8');
+        const htmlTemplate = fs.readFileSync('./email-templete/subscribe.html', 'utf-8');
         compiledTemplate = ejs.compile(htmlTemplate)();
 
 

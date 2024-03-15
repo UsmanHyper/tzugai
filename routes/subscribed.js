@@ -17,8 +17,8 @@ const saveUser = async (req, res, image) => {
 
         const username = req.email ? req.email : "";
         const savedUser = await newUser.save();
-
-        res.status(200).json({
+        await send_Email(req.email, 'Subscribe', { username: req?.email });
+        return res.status(200).json({
             status: 200,
             data: {
                 newUser
@@ -26,13 +26,13 @@ const saveUser = async (req, res, image) => {
             message: 'Subscriber has been created',
         });
 
-        setTimeout(() => {
-            if (res.status(200)) {
-                // Send sign-up email
-                send_Email(req.email, 'Subscribe', { username: req?.email });
-            }
+        // setTimeout(() => {
+        //     if (res.status(200)) {
+        //         // Send sign-up email
+        //         send_Email(req.email, 'Subscribe', { username: req?.email });
+        //     }
 
-        }, 3000)
+        // }, 3000)
     } catch (error) {
         console.error('Save Subscriber Error:', error);
         res.status(500).json({ status: 500, error: 'Internal Server Error during Subscriber creation' });

@@ -10,6 +10,14 @@
             text-decoration: underline !important;
         }
 
+        @font-face {
+            font-family: 'C800 Regular';
+            src: url('path/to/C800-Regular.ttf') format('truetype');
+            /* Update the path to the actual font file */
+            font-weight: normal;
+            font-style: normal;
+        }
+
         .body {
             margin: 0px;
             background-color: #f2f3f8;
@@ -51,6 +59,14 @@
             color: #455056;
             margin: 8px 0 0;
             line-height: 24px;
+        }
+
+        .label-st {
+            color: white;
+            font-size: 56px;
+            line-height: 0px;
+            font-weight: 600;
+            font-family: 'C800 Regular', sans-serif;
         }
 
         .p2 {
@@ -120,9 +136,19 @@
                     </tr>
                     <tr>
                         <td style="text-align: center">
-                            <a href="#" title="logo" target="_blank">
-                                <img width="300" src="../assets/images/tzugai.png" title="logo" alt="logo" />
-                            </a>
+                            <h2 style="           color: white;
+                            font-size: 56px;
+                            line-height: 0px;
+                            font-weight: 600;
+                            font-family: 'C800 Regular', sans-serif;
+                            font-family: 'C800 Regular';
+            src: url('path/to/C800-Regular.ttf') format('truetype');
+            /* Update the path to the actual font file */
+            font-weight: normal;
+            font-style: normal;">TZUGAI</h2>
+                            <!-- <a href="#" title="logo" target="_blank">
+                                <img width="300" src="./assets/images/tzugai.png" title="logo" alt="logo" />
+                            </a> -->
                         </td>
                     </tr>
                     <tr>
@@ -164,8 +190,7 @@
                     </tr>
                     <tr>
                         <td style="text-align: center">
-                            <p class="p3"
-                                style=" font-size: 16px;  color:#f2f3f8;">
+                            <p class="p3" style=" font-size: 16px;  color:#f2f3f8;">
                                 All Rights Reserved @ 2024 TZUGAI
                                 <strong>
                                     <script>
