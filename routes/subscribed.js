@@ -26,22 +26,13 @@ const saveUser = async (req, res, image) => {
             message: 'Subscriber has been created',
         });
 
-        // setTimeout(() => {
-        //     if (res.status(200)) {
-        //         // Send sign-up email
-        //         send_Email(req.email, 'Subscribe', { username: req?.email });
-        //     }
 
-        // }, 3000)
     } catch (error) {
         console.error('Save Subscriber Error:', error);
         res.status(500).json({ status: 500, error: 'Internal Server Error during Subscriber creation' });
     }
 };
-// router.post("/", validateUserData, async (req, res) => {
 
-//     send_Email(req.email, 'Subscribe', { username: req?.email });
-// })
 
 
 router.post("/", validateUserData, async (req, res, next) => {
@@ -50,7 +41,7 @@ router.post("/", validateUserData, async (req, res, next) => {
         // Check if the email is already in use
         const existingUser = await Subscriber.findOne({ email: response.email });
         if (existingUser) {
-            return res.status(400).json({ status: 400, error: 'Email is already in use' });
+            return res.status(400).json({ status: 400, error: 'This Email Is Already Registered' });
         }
         // Continue with saving the user
         await saveUser(response, res, req.file ? req.file.path : null);
