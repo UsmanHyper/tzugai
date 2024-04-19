@@ -10,6 +10,7 @@ const delete_all = require("./routes/del_all.js");
 const getAll = require("./routes/get_all_subs.js");
 const delSub = require("./routes/delete_subs.js");
 const test = require("./routes/test.js");
+const scaryDevilSubscribed = require("./routes/scaryDevilSubscribed.js");
 const multer = require('multer');
 require('dotenv').config();
 
@@ -44,6 +45,7 @@ mongooseConnection.on('open', () => {
     app.use("/api/del_sub", delSub);
     app.use("/api/test", test);
     app.use("/api/dell_all_sub", delete_all);
+    app.use("/api/scary_devil", scaryDevilSubscribed);
     app.use("/", test);
 
 
