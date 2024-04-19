@@ -6,10 +6,10 @@ require('dotenv').config();
 
 
 router.post('/add', subs.add);
-// router.post('/delete_all', authenticateToken, subs.del_all);
-// router.delete('/delete_one/:id', authenticateToken, subs.del_one);
-// router.get('/all_subscribers', authenticateToken, subs.get_all);
-// router.get('/one_subscriber', authenticateToken, subs.get_one);
+router.post('/delete_all',  subs.del_all);
+router.delete('/delete_one/:id',  subs.del_one);
+router.get('/all_subscribers',  subs.get_all);
+router.get('/one_subscriber/:id',  subs.get_one);
 router.get('/sub_test',  subs.test);
 
 
